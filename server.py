@@ -13,11 +13,18 @@ def index():
 
 @app.route('/random')
 def random():
-    c = r.randint(20)
-    l = r.randint(20)
-    e = r.randint(20)
-    routes = []
-    return redirect()
+    c = r.randint(1, 826)
+    l = r.randint(1, 126)
+    e = r.randint(1, 51)
+    routes = ['e', 'l', 'l', 'l', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
+              'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c']
+    pick = routes[r.randint(0, 23)]
+    if pick == 'c':
+        return redirect(f'/character/{c}')
+    if pick == 'l':
+        return redirect(f'/character/{l}')
+    if pick == 'e':
+        return redirect(f'/character/{e}')
 
 
 @app.route('/characters/<int:page>')
