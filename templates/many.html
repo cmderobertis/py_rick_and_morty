@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block title %}
+  {{thing | capitalize }}s
+{% endblock title %} {% block content %}
+<div class="container text-center">
+  <h2 class="mb-3">{{thing | capitalize}}s</h2>
+  <div class="g-3 row row-cols-1 row-cols-sm-2 row-cols-md-4">
+    {% for result in data.results %}
+    <div class="col">
+      <a class="text-decoration-none text-dark" href="/{{thing}}/{{result.id}}">
+        <div class="card">
+          <div class="card-header">
+            <h4>{{result.name}}</h4>
+          </div>
+          {% if thing == 'character' %}
+          <div class="card-body">
+            <a href="/{{thing}}/{{result.id}}">
+              <img
+                class="img-fluid rounded-3"
+                src="{{result.image}}"
+                alt="{{result.name}}"
+              />
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+dimension}}</h5>
