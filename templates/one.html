@@ -4,8 +4,9 @@
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
       <div class="card">
-        <div class="card-header">
-          <h2 class="card-title text-center">{{data.name}}</h2>
+        <div class="card-header text-center">
+          <h2 class="card-title">{{data.name}}</h2>
+          <h5 class="card-subtitle small text-muted">{{thing | capitalize}}</h5>
         </div>
         <div class="card-body">
           {% if thing == 'character' %}
@@ -13,8 +14,16 @@
             <h5>
               From
               <a
-                class="link-success text-decoration-none"
+                class="btn btn-success text-decoration-none"
+                {%
+                if
+                data.origin.name
+                !="unknown"
+                %}
                 href="/location/{{data.origin.url[41:]}}"
+                {%
+                endif
+                %}
                 >{{data.origin.name}}</a
               >
             </h5>
@@ -40,7 +49,11 @@
           </div>
           <h5>Episodes:</h5>
           {% for episode in data.episode %}
-          <a href="/episode/{{episode[40:]}}">{{episode[40:]}}</a>
+          <a
+            class="my-1 rounded-pill btn btn-success"
+            href="/episode/{{episode[40:]}}"
+            >{{episode[40:]}}</a
+          >
           {% endfor %} {% endif %} {% if thing == 'location' %}
           <div class="row">
             <div class="col-3">
