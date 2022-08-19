@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect
 import requests
 import random as r
 from pprint import pprint
@@ -16,28 +16,35 @@ def random():
     c = r.randint(20)
     l = r.randint(20)
     e = r.randint(20)
-    return
+    routes = []
+    return redirect()
 
 
-@app.route('/characters')
-def characters():
-    url = 'https://rickandmortyapi.com/api/character'
-    data = requests.get(url)
-    return render_template('many.html', data=data.json(), thing='character')
+@app.route('/characters/<int:page>')
+def characters(page):
+    url = f'https://rickandmortyapi.com/api/character?page={page}'
+    data = requests.get(url).json()
+    prev = f'{page-1}' if page > 1 else ''
+    next = f'{page+1}' if page < data['info']['pages'] else ''
+    return render_template('many.html', data=data, thing='character', prev=prev, next=next)
 
 
-@app.route('/locations')
-def locations():
-    url = 'https://rickandmortyapi.com/api/location'
-    data = requests.get(url)
-    return render_template('many.html', data=data.json(), thing='location')
+@app.route('/locations/<int:page>')
+def locations(page):
+    url = f'https://rickandmortyapi.com/api/location?page={page}'
+    data = requests.get(url).json()
+    prev = f'{page-1}' if page > 1 else ''
+    next = f'{page+1}' if page < data['info']['pages'] else ''
+    return render_template('many.html', data=data, thing='location', prev=prev, next=next)
 
 
-@app.route('/episodes')
-def episodes():
-    url = 'https://rickandmortyapi.com/api/episode'
-    data = requests.get(url)
-    return render_template('many.html', data=data.json(), thing='episode')
+@app.route('/episodes/<int:page>')
+def episodes(page):
+    url = f'https://rickandmortyapi.com/api/episode?page={page}'
+    data = requests.get(url).json()
+    prev = f'{page-1}' if page > 1 else ''
+    next = f'{page+1}' if page < data['info']['pages'] else ''
+    return render_template('many.html', data=data, thing='episode', prev=prev, next=next)
 
 
 @app.route('/character/<int:id>')

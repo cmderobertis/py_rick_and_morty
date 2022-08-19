@@ -10,6 +10,14 @@
         <div class="card-body">
           {% if thing == 'character' %}
           <div class="mb-3 text-center">
+            <h5>
+              From
+              <a
+                class="link-success text-decoration-none"
+                href="/location/{{data.origin.url[41:]}}"
+                >{{data.origin.name}}</a
+              >
+            </h5>
             <img
               class="img-fluid rounded"
               src="{{data.image}}"
@@ -18,21 +26,21 @@
           </div>
           <div class="row">
             <div class="col-3">
-              <h5>{% if data.gender %} Gender: {% endif %}</h5>
-              <h5>{% if data.type %} Type: {% endif %}</h5>
               <h5>{% if data.species %} Species: {% endif %}</h5>
+              <h5>{% if data.type %} Type: {% endif %}</h5>
+              <h5>{% if data.gender %} Gender: {% endif %}</h5>
               <h5>{% if data.status %} Status: {% endif %}</h5>
             </div>
             <div class="col">
-              <h5>{{data.gender}}</h5>
-              <h5>{{data.type}}</h5>
               <h5>{{data.species}}</h5>
+              <h5>{{data.type}}</h5>
+              <h5>{{data.gender}}</h5>
               <h5>{{data.status}}</h5>
             </div>
           </div>
           <h5>Episodes:</h5>
           {% for episode in data.episode %}
-          <a href="/episode/{{episode[40:]}}">Episode {{episode[40:]}}</a>
+          <a href="/episode/{{episode[40:]}}">{{episode[40:]}}</a>
           {% endfor %} {% endif %} {% if thing == 'location' %}
           <div class="row">
             <div class="col-3">
@@ -48,17 +56,15 @@
           <div class="row row-cols-1 row-cols-md-4 row-cols-sm-2 g-3">
             {% for resident in data.residents %}
             <div class="col text-center">
-              <div class="card">
-                <div class="card-header">
-                  <a href="/character/{{resident[42:]}}">
-                    <img
-                      class="img-fluid"
-                      src="https://rickandmortyapi.com/api/character/avatar/{{resident[42:]}}.jpeg"
-                      alt="{{resident.name}}"
-                    />
-                  </a>
+              <a href="/character/{{resident[42:]}}">
+                <div class="card">
+                  <img
+                    class="img-fluid rounded"
+                    src="https://rickandmortyapi.com/api/character/avatar/{{resident[42:]}}.jpeg"
+                    alt="{{resident.name}}"
+                  />
                 </div>
-              </div>
+              </a>
             </div>
             {% endfor %}
           </div>
@@ -69,6 +75,21 @@
             </div>
             <div class="col">
               <h5>{{data.air_date}}</h5>
+            </div>
+            <div class="row row-cols-1 row-cols-md-4 row-cols-sm-2 g-3">
+              {% for character in data.characters %}
+              <div class="col text-center">
+                <a href="/character/{{character[42:]}}">
+                  <div class="card">
+                    <img
+                      class="img-fluid rounded"
+                      src="https://rickandmortyapi.com/api/character/avatar/{{character[42:]}}.jpeg"
+                      alt="{{character.name}}"
+                    />
+                  </div>
+                </a>
+              </div>
+              {% endfor %}
             </div>
           </div>
           {% endif %}

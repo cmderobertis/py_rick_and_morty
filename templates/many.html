@@ -2,7 +2,15 @@
   {{thing | capitalize }}s
 {% endblock title %} {% block content %}
 <div class="container text-center">
-  <h2 class="mb-3">{{thing | capitalize}}s</h2>
+  <h1 class="mb-3">
+    {% if prev %}
+    <a href="/{{thing}}s/{{prev}}"><i class="text-success mx-3 h1 fa-solid fa-circle-arrow-left"></i></a>
+    {% endif %}
+    {{thing | capitalize}}s
+    {% if next %}
+    <a href="/{{thing}}s/{{next}}"><i class="text-success mx-3 h1 fa-solid fa-circle-arrow-right"></i></a>
+    {% endif %}
+  </h1>
   <div class="g-3 row row-cols-1 row-cols-sm-2 row-cols-md-4">
     {% for result in data.results %}
     <div class="col">
@@ -22,10 +30,24 @@
             </a>
           </div>
           {% endif %}
+          {% if thing == 'location' %}
+            {{result.type}}
+          {% endif %}
+          {% if thing == 'episode' %}
+            {{result.episode}}
+          {% endif %}
         </div>
       </a>
     </div>
     {% endfor %}
+  </div>
+  <div class="my-3">
+    {% if prev %}
+    <a href="/{{thing}}s/{{prev}}"><i class="h1 text-success fa-solid fa-circle-arrow-left mx-5"></i></a>
+    {% endif %}
+    {% if next %}
+    <a href="/{{thing}}s/{{next}}"><i class="h1 text-success fa-solid fa-circle-arrow-right mx-5"></i></a>
+    {% endif %}
   </div>
 </div>
 {% endblock content %}
